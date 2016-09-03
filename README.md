@@ -1,2 +1,2 @@
-# murasaki-kanjidic-reader
-Script that reads files from KANJIDIC format.
+# kanjidic-reader
+Script that reads files in KANJIDIC format.

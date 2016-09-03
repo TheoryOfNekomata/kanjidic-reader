@@ -161,6 +161,11 @@
 
             _nextChunk = _nextChunk.slice(_prefix.length);
 
+            // eat chunks which are composed of whitespace
+            if (_nextChunk.trim().length < 1) {
+                return { attr: null };
+            }
+
             if(_prefix === 'T') {
                 switch(parseInt(_nextChunk)) {
                     case 1:
@@ -197,6 +202,10 @@
             while(_chunks.length > 0) {
                 var _attrData = _parseChunk(),
                     _attr = _attrData.attr;
+
+                if (_attrData.attr === null) {
+                    continue;
+                }
 
                 if(_isAttrMultiple(_attr)) {
                     if(!_.has(_data.data, _attr)) {

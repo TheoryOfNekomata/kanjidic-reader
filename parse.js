@@ -24,8 +24,8 @@
                 case 'strokes':
                 case 'reading.korean':
                 case 'reading.pinyin':
-                case 'reading.special.nanori':
-                case 'reading.special.name_as_radical':
+                case 'reading.nanori':
+                case 'reading.name_as_radical':
                     return true;
             }
             return false;
@@ -134,13 +134,48 @@
             };
         },
 
+        _parseMappingAttr = function(chunk) {
+            return {
+                data: parseInt(chunk, 16)
+            };
+        },
+
+        _parseIndexI = function(chunk) {
+            var radicalStrokes = parseInt(chunk),
+                radicalId,
+                strokes,
+                order;
+
+            chunk = chunk.slice(('' + radicalStrokes).length);
+            radicalId = chunk[0];
+            chunk = chunk.slice(1).split('.');
+
+            return {
+                data: {
+                    radical: {
+                        stroke_count: radicalStrokes,
+                        id: radicalId
+                    },
+                    remaining_strokes: parseInt(chunk[0]),
+                    order_in_sequence: parseInt(chunk[1]),
+                }
+            };
+        },
+
         _getData = function(chunk, attr) {
             switch(attr) {
-                case 'reading.special': return _parseReadingSpecial(chunk);
-                case 'meaning': return _parseMeaning(chunk);
-                case 'reading.kun': return _parseKun(chunk);
-                case 'index.db': return _parseIndexDb(chunk);
-                case 'index.mp': return _parseIndexMp(chunk);
+                case 'reading.special':
+                    return _parseReadingSpecial(chunk);
+                case 'meaning':
+                    return _parseMeaning(chunk);
+                case 'reading.kun':
+                    return _parseKun(chunk);
+                case 'index.db':
+                    return _parseIndexDb(chunk);
+                case 'index.mp':
+                    return _parseIndexMp(chunk);
+                case 'index.i':
+                    return _parseIndexI(chunk);
                 case 'frequency':
                 case 'level.jouyou':
                 case 'level.jlpt':
@@ -148,6 +183,11 @@
                 case 'radical.bushu':
                 case 'radical.kangxi':
                     return _parseNumberAttr(chunk);
+                case 'mapping.unicode':
+                case 'mapping.shift_jis':
+                    return _parseMappingAttr(chunk);
+                default:
+                    break;
             }
             return { data: chunk };
         },
@@ -169,10 +209,10 @@
             if(_prefix === 'T') {
                 switch(parseInt(_nextChunk)) {
                     case 1:
-                        _specialReadingAttr = 'reading.special.nanori';
+                        _specialReadingAttr = 'reading.nanori';
                         break;
                     case 2:
-                        _specialReadingAttr = 'reading.special.name_as_radical';
+                        _specialReadingAttr = 'reading.name_as_radical';
                         break;
                 }
             }

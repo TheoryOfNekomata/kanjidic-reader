@@ -162,6 +162,15 @@
             };
         },
 
+        _parseDeRooCode = function (chunk) {
+            return {
+                data: {
+                    upper_fragment_code: parseInt(chunk.slice(0, chunk.length - 2)),
+                    lower_fragment_code: parseInt(chunk.slice(chunk.length - 2))
+                }
+            };
+        },
+
         _getData = function(chunk, attr) {
             switch(attr) {
                 case 'reading.special':
@@ -170,6 +179,8 @@
                     return _parseMeaning(chunk);
                 case 'reading.kun':
                     return _parseKun(chunk);
+                case 'index.dr':
+                    return _parseDeRooCode(chunk);
                 case 'index.db':
                     return _parseIndexDb(chunk);
                 case 'index.mp':

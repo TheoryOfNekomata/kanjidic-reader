@@ -1,6 +1,6 @@
 {
   "name": "@theoryofnekomata/kanjidic-reader",
-  "version": "0.0.1",
+  "version": "0.8.0",
   "description": "Script that reads files in KANJIDIC format.",
   "main": "index.js",
   "repository": {

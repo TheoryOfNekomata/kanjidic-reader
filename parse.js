@@ -52,7 +52,7 @@
             if(_hasPrefix(rawData, '-')) { return _classifyChunk(rawData.slice(1)); }
             if(ctype.isHiragana(rawData)) { return ['', 'reading.kun']; }
             if(ctype.isKatakana(rawData)) { return ['', 'reading.on']; }
-            if(ctype.isKanji(rawData)) { return ['', 'kanji']; }
+            if(ctype.isKanji(rawData)) { return ['', 'character']; }
             if(ctype.isShiftJisCode(rawData)) { return ['', 'mapping.shift_jis']; }
 
             return _classifyChunkAgainstPrefix(rawData);

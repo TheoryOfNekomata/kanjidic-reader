@@ -21,7 +21,7 @@
                 case 'meaning':
                 case 'reading.kun':
                 case 'reading.on':
-                case 'strokes':
+                case 'stroke_count':
                 case 'reading.korean':
                 case 'reading.pinyin':
                 case 'reading.nanori':
@@ -190,7 +190,7 @@
                 case 'frequency':
                 case 'level.jouyou':
                 case 'level.jlpt':
-                case 'strokes':
+                case 'stroke_count':
                 case 'radical.bushu':
                 case 'radical.kangxi':
                     return _parseNumberAttr(chunk);
